@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kosakata Bahasa Inggris</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2 id="english-word">Word</h2>
+    <p id="indonesian-meaning">Meaning</p>
+    <button class="btn" onclick="nextWord()">Next Word</button>
+</div>
+
+<script>
+    let words = [];
+
+    // Gantilah URL berikut dengan URL dari file vocabulary.json Anda di GitHub
+    fetch('https://github.com/Saadwaqas52/vocabulary-app/blob/main/vocabulary.json')
+        .then(response => response.json())
+        .then(data => {
+            words = data;
+            nextWord();  // Memulai dengan menampilkan kata pertama
+        });
+
+    let currentWordIndex = 0;
+
+    function nextWord() {
+        if (words.length === 0) return;
+        currentWordIndex = (currentWordIndex + 1) % words.length;
+        document.getElementById("english-word").innerText = words[currentWordIndex].English_Word;
+        document.getElementById("indonesian-meaning").innerText = words[currentWordIndex].Indonesian_Meaning;
+    }
+</script>
+
+</body>
+</html>
